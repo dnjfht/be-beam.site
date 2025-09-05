@@ -32,7 +32,7 @@ export default function MeetingCard({
   return (
     <div className={cn('relative w-full cursor-pointer', classNames)}>
       <img
-        className="h-[226px] w-full rounded-2xl object-cover"
+        className="aspect-[358/226] w-full rounded-2xl object-cover"
         src={image}
         alt="meeting_thumbnail"
       />

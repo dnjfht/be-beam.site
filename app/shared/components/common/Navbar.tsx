@@ -39,9 +39,12 @@ const COMMON_MENU_ITEMS: MenuItem[] = [
 ];
 
 const USER_MENU_ITEMS: MenuItem[] = [
-  { to: '/myPage/profile', label: '😎 마이페이지' },
+  { to: '/myPage/participated', label: '😎 나의 모임' },
+  { to: '/myPage/reviews', label: '✍️ 나의 후기' },
+  { to: '/myPage/likes', label: '💖 좋아요 리스트' },
+  { to: '/myPage/following', label: '⭐ 팔로잉 리스트' },
+  { to: '/myPage/info', label: '🙆 개인정보 수정' },
   { to: '/myPage/notifications', label: '🔔 알림' },
-  { to: '/myPage/likes', label: '💖 좋아요' },
 ];
 
 const useSearch = () => {
@@ -124,7 +127,7 @@ function NavbarMobileContent({ user }: { user: MyProfileResult | null }) {
                       </Text>
 
                       <Button
-                        variant="tertiary"
+                        variant="outline"
                         onClick={() => handleNavigate('/myPage/profile')}
                         className="mt-6 cursor-pointer rounded-lg border-1 border-gray-300 px-5 py-3 text-b3"
                       >
@@ -133,7 +136,7 @@ function NavbarMobileContent({ user }: { user: MyProfileResult | null }) {
                     </div>
                   ) : (
                     <Button
-                      variant="tertiary"
+                      variant="outline"
                       onClick={() => handleNavigate('/login')}
                     >
                       로그인 / 회원가입

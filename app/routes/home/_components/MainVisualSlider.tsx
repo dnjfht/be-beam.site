@@ -6,8 +6,8 @@ export default function MainVisualSlider({ banners }: { banners: Banner[] }) {
     <Slider
       datas={banners}
       isBtn={false}
-      slideWidth="max-w-[1480px]"
-      slideHeight="h-[400px]"
+      slideWidth="max-w-[1480px] rounded-none md:rounded-xl"
+      slideHeight="h-[220px] md:h-[280px] lg:h-[400px]"
     />
   );
 }

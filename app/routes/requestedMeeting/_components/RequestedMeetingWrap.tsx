@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router';
 import type { MyAppliedMeetingFilters } from '@/features/mypage/schemas/userFilters';
 import usePagination from '@/shared/hooks/usePagination';
 import type { MyPageMeetingSummary } from '@/shared/types/entities';
-import GridGroup from '../../../shared/components/ui/GridGroup';
 import MeetingCard from '../../../features/meetings/components/MeetingCard';
 import {
   Pagination,
@@ -50,7 +49,7 @@ export default function RequestedMeetingWrap({
 
   return (
     <>
-      <GridGroup columns={3} gap={5}>
+      <div className="mx-auto grid w-full grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4 md:gap-5">
         {requestMeetings?.meetings?.map((meeting: MyPageMeetingSummary) => (
           <MeetingCard
             key={meeting.id}
@@ -92,7 +91,7 @@ export default function RequestedMeetingWrap({
               )} */}
           </MeetingCard>
         ))}
-      </GridGroup>
+      </div>
 
       <Pagination className="mt-20">
         <PaginationContent>

@@ -104,7 +104,7 @@ export default function GuideBooks({ loaderData }: Route.ComponentProps) {
         <img
           src="/images/guideBook_banner.png"
           alt="가이드북 배너"
-          className="mt-25 h-[490px] w-full object-cover"
+          className="h-[490px] w-full object-cover pt-18 lg:pt-25"
         />
 
         <div className="mx-auto w-full max-w-[1480px] py-16">

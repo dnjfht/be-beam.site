@@ -7,22 +7,26 @@ export default function GuideBookCard({ data }: { data: GuidebookSummary }) {
 
   return (
     <div
-      className="w-full cursor-pointer overflow-hidden rounded-3xl border-1 border-gray-300"
+      className="w-full cursor-pointer"
       key={data.id}
       onClick={() => navigate(`/guideBook/${data.id}`)}
     >
       <img
-        className="h-[240px] w-full object-cover"
+        className="aspect-square w-full rounded-xl border border-gray-200 object-cover"
         src={data.thumbnailImage}
         alt="guidBook_thumbnail"
       />
-      <div className="box-border w-full border-t-1 border-gray-300 px-7 py-8">
-        <Text variant="T2_Semibold" className="truncate">
+      <div className="mt-4 box-border w-full">
+        <Text variant="T2_Semibold" className="line-clamp-2">
           {data.title}
         </Text>
-        <Text variant="T4_Regular" color="gray-700" className="mt-3 truncate">
+        {/* <Text
+          variant="T4_Regular"
+          color="gray-700"
+          className="mt-3 line-clamp-2"
+        >
           {data.description}
-        </Text>
+        </Text> */}
       </div>
     </div>
   );

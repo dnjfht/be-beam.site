@@ -107,7 +107,7 @@ export default function GuideBooks({ loaderData }: Route.ComponentProps) {
           className="h-[490px] w-full object-cover pt-18 lg:pt-25"
         />
 
-        <div className="mx-auto w-full max-w-[1480px] py-16">
+        <div className="mx-auto my-5 w-full max-w-[1480px] lg:py-16">
           <Tabs
             defaultValue="all"
             className="text-b1"

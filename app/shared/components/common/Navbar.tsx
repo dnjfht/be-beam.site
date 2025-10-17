@@ -26,6 +26,7 @@ import Text from '../ui/Text';
 import { Button } from '../ui/Button';
 import { cn } from '@/styles/tailwind';
 import useLogoutMutation from '@/features/auth/hooks/useLogoutMutation';
+import { DialogDescription } from '../ui/Dialog';
 
 type MenuItem = {
   to: string;
@@ -111,7 +112,8 @@ function NavbarMobileContent({ user }: { user: MyProfileResult | null }) {
           <DialogOverlay className="fixed inset-0 z-50 bg-black/50" />
           <DialogContent className="fixed top-0 z-50 h-full w-full max-w-xs bg-white">
             <DialogTitle hidden>메뉴</DialogTitle>
-            <div className="flex h-full flex-col justify-between px-6 py-8">
+            <DialogDescription hidden>사이드바 메뉴입니다.</DialogDescription>
+            <div className="flex h-full flex-col justify-between overflow-auto px-6 py-8">
               <div>
                 <Logo />
                 <div className="mt-6">
@@ -147,7 +149,7 @@ function NavbarMobileContent({ user }: { user: MyProfileResult | null }) {
                 {user && <UserMenuItems onNavigate={() => setOpen(false)} />}
               </div>
               {user && (
-                <div className="">
+                <div className="mt-12">
                   <button
                     onClick={() => {
                       setOpen(false);

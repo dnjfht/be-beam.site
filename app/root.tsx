@@ -23,6 +23,7 @@ import { Toaster } from './shared/components/ui/Toaster';
 import ModalProvider from './shared/providers/ModalProvider';
 import Footer from '@/shared/components/common/Footer';
 import { Button } from '@/shared/components/ui/Button';
+import { useTokenRefresh } from './features/auth/hooks/useTokenRefresh';
 
 export const unstable_middleware = [sessionMiddleware, globalStorageMiddleware];
 
@@ -69,6 +70,7 @@ export async function loader({ context }: Route.LoaderArgs) {
 
 export default function App() {
   const path = useLocation().pathname.slice(1);
+  useTokenRefresh(9 * 60 * 1000);
   return (
     <TanstackQueryProvider>
       <div className="bg-white whitespace-pre-wrap text-black">

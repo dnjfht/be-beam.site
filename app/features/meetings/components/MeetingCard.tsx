@@ -4,6 +4,8 @@ import Text from '../../../shared/components/ui/Text';
 import { cn } from '@/styles/tailwind';
 import type { MeetingSummary } from '@/shared/types/entities';
 import { Tag } from '../../../shared/components/ui/Tag';
+import HeartFillIcon from '@/shared/components/icons/HeartFillIcon';
+import HeartIcon from '@/shared/components/icons/HeartIcon';
 
 export interface MeetingCardProp extends MeetingSummary {
   onClick: () => void;
@@ -63,12 +65,20 @@ export default function MeetingCard({
         {recruitmentStatus ?? userStatus}
       </Tag>
 
-      <img
-        onClick={onLikeClick}
-        className={cn('absolute top-5 right-5', isLikeBtn ? 'block' : 'hidden')}
-        src={liked ? '/images/icons/fill_like.svg' : '/images/icons/w_like.svg'}
-        alt="like_icon"
-      />
+      <div
+        className={cn(
+          isLikeBtn ? 'block' : 'hidden',
+          'absolute top-5 right-5 flex h-9 w-9 items-center justify-center rounded-full bg-[rgba(0,0,0,0.3)]',
+        )}
+      >
+        <div onClick={onLikeClick}>
+          {liked ? (
+            <HeartFillIcon className="text-primary" />
+          ) : (
+            <HeartIcon className="text-white" />
+          )}
+        </div>
+      </div>
 
       <div className="relative w-full py-3">
         <Text variant="B2_Medium" color="primary" className="mb-1">

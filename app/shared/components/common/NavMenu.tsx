@@ -18,7 +18,7 @@ export default function NavMenu() {
   ];
 
   return (
-    <nav className="flex flex-1 gap-8 text-[1.125rem]">
+    <nav className="flex flex-1 gap-20 text-[1.125rem]">
       {navItems.map((item, idx) => (
         <NavLink
           key={idx}

@@ -1,7 +1,7 @@
 // dumb 패턴 컴포넌트. UI 관련 로직만
 
-import MeetingDetailContentHostProfile from './MeetingDetailContentHostProfile';
 import Text from '../../../shared/components/ui/Text';
+import ChevronRightIcon from '@/shared/components/icons/ChevronRightIcon';
 
 interface MeetingDetailHostProps {
   hostImg: string;
@@ -19,13 +19,27 @@ export default function MeetingDetailHost({
   return (
     <div
       onClick={onClick}
-      className="mt-5 box-border flex w-full items-stretch gap-14 rounded-xl bg-gray-100 px-10 py-7"
+      className="mt-5 box-border flex w-full items-center gap-10 rounded-xl bg-gray-200 px-10 py-7"
     >
-      <MeetingDetailContentHostProfile hostImg={hostImg} hostName={hostName} />
+      <img
+        className="h-16 w-16 rounded-full object-cover"
+        src={hostImg}
+        alt="host_img"
+      />
 
-      <Text variant="B2_Medium" color="gray-600">
-        {hostDes}
-      </Text>
+      <div className="w-full flex-1">
+        <div className="mb-3 flex items-center gap-x-1">
+          <img src="/images/icons/host.svg" alt="host_icon" />
+          <Text variant="B2_Medium" className="mr-1">
+            {hostName}
+          </Text>
+          <ChevronRightIcon width="6" height="12" />
+        </div>
+
+        <Text variant="B2_Medium" color="gray-600">
+          {hostDes}
+        </Text>
+      </div>
     </div>
   );
 }

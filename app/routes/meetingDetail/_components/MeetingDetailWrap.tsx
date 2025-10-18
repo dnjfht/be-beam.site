@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router';
 import useMeetingQuery from '@/features/meetings/hooks/useMeetingQuery';
 import { useModalStore } from '@/shared/stores/useModalStore';
 
@@ -8,8 +9,10 @@ import MeetingDetailMeetingReviewsContainer from './MeetingDetailMeetingReviewsC
 import MeetingDetailCard from './MeetingDetailCard';
 import Text from '../../../shared/components/ui/Text';
 import { Button } from '../../../shared/components/ui/Button';
+import MeetingDetailHost from './MeetingDetailHost';
 
 export default function MeetingDetailWrap({ id }: { id: number }) {
+  const navigate = useNavigate();
   const { open } = useModalStore();
   const { data: meeting } = useMeetingQuery(id);
 
@@ -22,14 +25,20 @@ export default function MeetingDetailWrap({ id }: { id: number }) {
           images={meeting?.meetingImages}
           isCount={true}
           slideWidth="w-full"
-          slideHeight="h-[657px]"
+          slideHeight="h-[557px]"
           delay={5000}
+        />
+        <MeetingDetailHost
+          hostImg={meeting?.hostImage}
+          hostName={meeting?.hostName}
+          hostDes={meeting?.hostDescription}
+          onClick={() => navigate(`/host/${meeting?.hostId}`)}
         />
         <MeetingDetailContent meeting={meeting} />
         <MeetingDetailMeetingReviewsContainer meetingId={id} />
       </div>
 
-      <div className="sticky top-[100px] h-fit flex-1">
+      <div className="sticky top-[100px] z-50 h-fit flex-1">
         <MeetingDetailCard meeting={meeting} />
         <div
           className={cn(

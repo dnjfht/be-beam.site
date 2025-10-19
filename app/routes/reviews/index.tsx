@@ -52,9 +52,7 @@ export default function Reviews() {
       <img
         src="/images/meeting_review_banner.png"
         alt="후기들이 증명해주는 비빔의 모임"
-        className="rounded-[27px]"
-        width={1480}
-        height={524}
+        className="h-[220px] w-full max-w-[1480px] rounded-[27px] object-cover md:h-[524px]"
       />
       <div className="mt-16 w-full">
         <TabNav>

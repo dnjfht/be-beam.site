@@ -34,6 +34,7 @@ export default function MeetingWrap({
     return clientMeetings?.pages?.flatMap((page) => page.meetings) || [];
   }, [clientMeetings]);
 
+  console.log('meetings', meetings);
   return (
     <>
       <MeetingCardGroup meetings={meetings} isLikedBtn={user ? true : false} />

@@ -13,13 +13,14 @@ import {
 import { useUrlFilters } from '@/shared/hooks/userUrlFilters';
 import { getTopics } from '@/shared/api/endpoints/topics';
 
+import type { Route } from '.react-router/types/app/routes/meetings/+types';
 import type { Topic } from '@/shared/types/entities';
 import CommonTemplate from '@/shared/components/layout/CommonTemplate';
 import Banner from '@/shared/components/common/Banner';
 import MeetingFilterControls from '@/routes/meetings/_components/MeetingFilterControls';
 import MeetingWrap from '@/routes/meetings/_components/MeetingWrap';
 import { Button } from '@/shared/components/ui/Button';
-import type { Route } from '.react-router/types/app/routes/meetings/+types';
+
 import { meetingsInfiniteQueryOptions } from '@/features/meetings/hooks/useMeetingsQuery';
 
 export function meta() {
@@ -92,7 +93,10 @@ export default function Meetings({ loaderData }: Route.ComponentProps) {
   return (
     <HydrationBoundary state={dehydratedState}>
       <CommonTemplate>
-        <Banner imageUrl="/images/meeting_banner.png" height="h-[260px]" />
+        <Banner
+          imageUrl="/images/meeting_banner.png"
+          height="h-[220px] md:h-[365px]"
+        />
 
         <MeetingFilterControls
           topics={allTopics}

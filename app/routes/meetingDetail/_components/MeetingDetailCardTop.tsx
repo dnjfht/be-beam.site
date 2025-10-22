@@ -3,20 +3,28 @@ import { Tag } from '../../../shared/components/ui/Tag';
 import Text from '../../../shared/components/ui/Text';
 import RecruitmentTypeAndTopic from './RecruitmentTypeAndTopic';
 import TitleAndDescription from '../../../shared/components/common/TitleAndDes';
+import { cn } from '@/styles/tailwind';
 
 export default function MeetingDetailCardTop({
   meeting,
+  isBlock = 'block',
 }: {
   meeting: Meeting;
+  isBlock?: string;
 }) {
   return (
-    <div className="w-full">
+    <div
+      className={cn(
+        isBlock,
+        'box-border w-full rounded-t-4xl bg-white px-8 pt-8 pb-4 lg:rounded-none lg:px-0 lg:py-0',
+      )}
+    >
       <RecruitmentTypeAndTopic
         recruitmentType={meeting?.recruitmentType}
         topic={meeting?.topic}
       />
 
-      <Text variant="H2_Semibold" className="mt-6">
+      <Text variant="H2_Semibold" className="mt-3 lg:mt-6">
         <span className="mr-2 text-gray-500">{meeting?.recruitmentStatus}</span>
         {meeting?.name}
       </Text>
@@ -61,7 +69,7 @@ export default function MeetingDetailCardTop({
           <Tag
             key={idx}
             variant="primary"
-            className="rounded-md border-none bg-[#FFE2CE] px-2 py-1 text-b1"
+            className="mr-1 rounded-md border-none bg-transparent p-0 text-b1 lg:mr-0 lg:bg-[#FFE2CE] lg:px-2 lg:py-1"
           >
             {`#${hashtag}`}
           </Tag>

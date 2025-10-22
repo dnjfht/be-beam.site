@@ -1,5 +1,5 @@
 import { getMeetingReviews } from '@/shared/api/endpoints/meetingReviews';
-import type { meetingReviewFilterType } from '@/routes/meetingDetail/_components/MeetingDetailMeetingReviewsContainer';
+import type { meetingReviewFilterType } from '@/routes/meetingDetail/_components/MeetingDetailReviews';
 import { infiniteQueryOptions, useInfiniteQuery } from '@tanstack/react-query';
 import { reviewQueryKeys } from '@/features/reviews/queries/queryKeys';
 

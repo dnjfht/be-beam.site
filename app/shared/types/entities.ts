@@ -63,6 +63,7 @@ export interface Meeting {
   participantCount: number;
   minParticipants: number;
   maxParticipants: number;
+  applicantCount: number;
   recruitingStartTime: string;
   recruitingEndTime: string;
   meetingMode: string;

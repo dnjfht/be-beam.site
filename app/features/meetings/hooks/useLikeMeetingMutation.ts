@@ -5,6 +5,7 @@ import {
 } from '@tanstack/react-query';
 import {
   likeMeeting,
+  type MeetingDetailResult,
   type MeetingListResult,
 } from '@/shared/api/endpoints/meetings';
 
@@ -30,6 +31,9 @@ export default function useLikeMeetingMutation() {
           InfiniteData<MeetingListResult> | undefined
         >({
           queryKey: meetingQueryKeys.list._def,
+        }),
+        detail: queryClient.getQueriesData<MeetingDetailResult | undefined>({
+          queryKey: meetingQueryKeys.detail._def,
         }),
         search: queryClient.getQueriesData<
           InfiniteData<SearchMeetingResult> | undefined
@@ -68,6 +72,22 @@ export default function useLikeMeetingMutation() {
               };
             }),
           };
+        },
+      );
+
+      // detail
+      queryClient.setQueriesData<MeetingDetailResult | undefined>(
+        {
+          queryKey: meetingQueryKeys.detail._def,
+        },
+        (oldData) => {
+          if (!oldData) return oldData;
+          if (oldData.id === variables.id) {
+            return {
+              ...oldData,
+              liked: !oldData.liked,
+            };
+          }
         },
       );
 

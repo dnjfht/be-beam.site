@@ -13,6 +13,7 @@ import Text from '../ui/Text';
 import { IconButton } from '@/shared/components/ui/IconButton';
 
 export default function Slider({
+  ref,
   images,
   slidesPreView = 1,
   spaceBetween = 20,
@@ -27,6 +28,7 @@ export default function Slider({
   classNames,
   imageStyle,
 }: {
+  ref?: React.Ref<HTMLDivElement>;
   images?: string[];
   slidesPreView?: number;
   spaceBetween?: number;
@@ -47,6 +49,7 @@ export default function Slider({
 
   return (
     <div
+      ref={ref}
       className={cn(
         'relative w-full overflow-hidden rounded-xl',
         slideWidth,

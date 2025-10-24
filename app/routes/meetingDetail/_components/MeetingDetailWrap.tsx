@@ -35,12 +35,21 @@ export default function MeetingDetailWrap({ id }: { id: number }) {
 
   const sliderRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+
+  const [isClient, setIsClient] = useState(false);
   const [contentHeight, setContentHeight] = useState(0);
   const [sliderHeight, setSliderHeight] = useState(0);
+
   const { data: meeting } = useMeetingQuery(id);
   const { userStatus, recruitmentStatus } = meeting;
 
   useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient) return;
+
     const measureAndSetPosition = () => {
       if (contentRef.current && sliderRef.current) {
         const contentH = contentRef.current.offsetHeight;
@@ -68,7 +77,7 @@ export default function MeetingDetailWrap({ id }: { id: number }) {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [meeting]);
+  }, [meeting, isClient]);
 
   console.log(meeting);
 
@@ -214,16 +223,16 @@ export default function MeetingDetailWrap({ id }: { id: number }) {
   const { mutate: likeMeeting, isPending } = useLikeMeetingMutation();
 
   const isMeetingStatusCommentBlock =
-    (meeting?.recruitmentStatus === '모집중' &&
-      meeting?.maxParticipants - 2 <= meeting?.applicantCount) ||
-    meeting?.recruitmentStatus === '모임중';
+    (meeting.recruitmentStatus === '모집중' &&
+      meeting.maxParticipants - 2 <= meeting.applicantCount) ||
+    meeting.recruitmentStatus === '모임중';
 
   const meetingStatusComment =
-    meeting?.recruitmentStatus === '모집중' &&
-    meeting?.maxParticipants - 2 <= meeting?.applicantCount
-      ? `${meeting?.maxParticipants - meeting?.applicantCount} 자리 남음`
-      : meeting?.recruitmentStatus === '모임중'
-        ? `${meeting?.participantCount}명 모임 참여 중`
+    meeting.recruitmentStatus === '모집중' &&
+    meeting.maxParticipants - 2 <= meeting.applicantCount
+      ? `${meeting.maxParticipants - meeting.applicantCount} 자리 남음`
+      : meeting.recruitmentStatus === '모임중'
+        ? `${meeting.participantCount}명 모임 참여 중`
         : null;
 
   return (
@@ -245,7 +254,7 @@ export default function MeetingDetailWrap({ id }: { id: number }) {
           ref={contentRef}
           className="absolute z-10 w-full rounded-t-4xl bg-[#e9e9e9] lg:relative lg:bg-white lg:bg-none"
           style={
-            window.innerWidth < 1024
+            isClient && window.innerWidth < 1024
               ? { top: sliderHeight + 72 - sliderHeight * 0.05 }
               : {}
           }
@@ -286,7 +295,7 @@ export default function MeetingDetailWrap({ id }: { id: number }) {
 
           <MeetingDetailContentWrap meeting={meeting} />
 
-          {meeting?.guidebook && (
+          {meeting.guidebook && (
             <TitleAndDes
               title="참고한 가이드북"
               wrapStyle="mb-14 bg-white p-4 box-border"
@@ -313,7 +322,7 @@ export default function MeetingDetailWrap({ id }: { id: number }) {
             </Tag>
 
             <p className="min-w-0 text-t1">
-              총 {formatNumberWithComma(meeting?.paymentAmount)}원
+              총 {formatNumberWithComma(meeting.paymentAmount)}원
             </p>
 
             <div className="flex w-full flex-1 items-center gap-2">
@@ -321,7 +330,7 @@ export default function MeetingDetailWrap({ id }: { id: number }) {
                 variant="outline"
                 size="lg"
                 className={cn(
-                  meeting?.liked
+                  meeting.liked
                     ? 'border-primary bg-primary-light text-primary'
                     : 'border-gray-500 text-gray-700',
                   'box-border flex aspect-square flex-col items-center justify-center gap-0 p-0 text-b3',
@@ -335,7 +344,7 @@ export default function MeetingDetailWrap({ id }: { id: number }) {
                   }
                 }}
               >
-                {meeting?.liked ? (
+                {meeting.liked ? (
                   <HeartFillIcon width={26} height={26} />
                 ) : (
                   <HeartIcon width={26} height={26} />
@@ -394,9 +403,12 @@ export default function MeetingDetailWrap({ id }: { id: number }) {
         </div>
 
         <div
-          className="w-full lg:hidden"
+          className="w-full"
           style={{
-            height: contentHeight - sliderHeight * 0.05,
+            height:
+              isClient && window.innerWidth < 1024
+                ? contentHeight - sliderHeight * 0.05
+                : 0,
           }}
         ></div>
       </div>
@@ -406,7 +418,7 @@ export default function MeetingDetailWrap({ id }: { id: number }) {
         <div
           className={cn(
             'mt-5 box-border flex w-full flex-col items-center rounded-xl border-1 border-gray-300 bg-white p-12 text-center',
-            meeting?.reviewable ? 'block' : 'hidden',
+            meeting.reviewable ? 'block' : 'hidden',
           )}
         >
           <Text color="gray-600" className="mb-6">

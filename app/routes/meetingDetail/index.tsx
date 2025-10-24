@@ -21,6 +21,7 @@ export function meta() {
 
 export async function loader({ params }: Route.LoaderArgs) {
   const queryClient = new QueryClient();
+
   const filter: meetingReviewFilterType = {
     type: 'text',
     rating: 'all',
@@ -40,6 +41,7 @@ export async function loader({ params }: Route.LoaderArgs) {
 
 export async function clientLoader({ params }: Route.LoaderArgs) {
   const queryClient = new QueryClient();
+
   const filter: meetingReviewFilterType = {
     type: 'text',
     rating: 'all',

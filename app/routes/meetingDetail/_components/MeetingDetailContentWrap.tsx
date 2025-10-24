@@ -131,7 +131,7 @@ export default function MeetingDetailContentWrap({
   return (
     <div
       className={cn(
-        meeting?.guidebook && 'border-b-1 border-gray-300',
+        meeting.guidebook && 'border-b-1 border-gray-300',
         'mt-5 mb-5 w-full bg-white lg:mb-10',
       )}
     >

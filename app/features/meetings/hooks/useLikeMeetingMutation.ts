@@ -14,40 +14,64 @@ import { meetingQueryKeys } from '@/features/meetings/queries/queryKeys';
 import { searchQueryKeys } from '@/features/search/queries/queryKeys';
 import type { SearchMeetingResult } from '@/shared/api/endpoints/searches';
 import type { RecommendationMeetingsResult } from '@/shared/api/endpoints/home';
+import { useRouteLoaderData } from 'react-router';
 
 export default function useLikeMeetingMutation() {
   const queryClient = useQueryClient();
+  const rootLoaderData = useRouteLoaderData('root');
+  const user = rootLoaderData?.user;
 
   return useMutation({
     mutationFn: (meeting: { id: number; liked: boolean }) =>
       likeMeeting(meeting),
+
     onMutate: async (variables) => {
+      if (!user) {
+        return {
+          previousData: {
+            list: undefined,
+            detail: undefined,
+            search: undefined,
+            recommendedMeetings: undefined,
+          },
+        };
+      }
+
       await queryClient.cancelQueries({
         queryKey: meetingQueryKeys._def,
       });
 
+      const listData = queryClient.getQueriesData<
+        InfiniteData<MeetingListResult> | undefined
+      >({
+        queryKey: meetingQueryKeys.list._def,
+      });
+
+      const detailData = queryClient.getQueriesData<
+        MeetingDetailResult | undefined
+      >({
+        queryKey: meetingQueryKeys.detail._def,
+      });
+
+      const searchData = queryClient.getQueriesData<
+        InfiniteData<SearchMeetingResult> | undefined
+      >({
+        queryKey: searchQueryKeys.meetings._def,
+      });
+
+      const recommendedMeetingsData = queryClient.getQueriesData<
+        RecommendationMeetingsResult | undefined
+      >({
+        queryKey: meetingQueryKeys.recommendedMeetings._def,
+      });
+
       const previousData = {
-        list: queryClient.getQueriesData<
-          InfiniteData<MeetingListResult> | undefined
-        >({
-          queryKey: meetingQueryKeys.list._def,
-        }),
-        detail: queryClient.getQueriesData<MeetingDetailResult | undefined>({
-          queryKey: meetingQueryKeys.detail._def,
-        }),
-        search: queryClient.getQueriesData<
-          InfiniteData<SearchMeetingResult> | undefined
-        >({
-          queryKey: searchQueryKeys.meetings._def,
-        }),
-        recommendedMeetings: queryClient.getQueriesData<
-          RecommendationMeetingsResult | undefined
-        >({
-          queryKey: meetingQueryKeys.recommendedMeetings._def,
-        }),
+        list: listData[0]?.[1],
+        detail: detailData[0]?.[1],
+        search: searchData[0]?.[1],
+        recommendedMeetings: recommendedMeetingsData[0]?.[1],
       };
 
-      // list
       queryClient.setQueriesData<InfiniteData<MeetingListResult | undefined>>(
         {
           queryKey: meetingQueryKeys.list._def,
@@ -75,7 +99,6 @@ export default function useLikeMeetingMutation() {
         },
       );
 
-      // detail
       queryClient.setQueriesData<MeetingDetailResult | undefined>(
         {
           queryKey: meetingQueryKeys.detail._def,
@@ -86,12 +109,15 @@ export default function useLikeMeetingMutation() {
             return {
               ...oldData,
               liked: !oldData.liked,
+              likesCount: oldData.liked
+                ? oldData.likesCount - 1
+                : oldData.likesCount + 1,
             };
           }
+          return oldData;
         },
       );
 
-      // search
       queryClient.setQueriesData<InfiniteData<SearchMeetingResult | undefined>>(
         {
           queryKey: searchQueryKeys.meetings._def,
@@ -119,7 +145,6 @@ export default function useLikeMeetingMutation() {
         },
       );
 
-      // recommendedMeetings
       queryClient.setQueriesData<RecommendationMeetingsResult | undefined>(
         {
           queryKey: meetingQueryKeys.recommendedMeetings._def,
@@ -140,6 +165,7 @@ export default function useLikeMeetingMutation() {
 
       return { previousData };
     },
+
     onSuccess: (_, variables) => {
       toast.success(
         `해당 모임의 ${variables.liked ? '좋아요를 취소하였습니다.' : ' 좋아요를 눌렀습니다.'}`,
@@ -160,31 +186,45 @@ export default function useLikeMeetingMutation() {
         }),
       ]);
     },
+
     onError: (err, variables, context) => {
-      if (context?.previousData.list) {
+      if (!context) return;
+
+      const { previousData } = context;
+
+      if (previousData.list) {
         queryClient.setQueriesData(
           {
             queryKey: meetingQueryKeys.list._def,
           },
-          context.previousData.list,
+          previousData.list,
         );
       }
 
-      if (context?.previousData.search) {
+      if (previousData.detail) {
+        queryClient.setQueriesData(
+          {
+            queryKey: meetingQueryKeys.detail._def,
+          },
+          previousData.detail,
+        );
+      }
+
+      if (previousData.search) {
         queryClient.setQueriesData(
           {
             queryKey: searchQueryKeys.meetings._def,
           },
-          context.previousData.search,
+          previousData.search,
         );
       }
 
-      if (context?.previousData.recommendedMeetings) {
+      if (previousData.recommendedMeetings) {
         queryClient.setQueriesData(
           {
             queryKey: meetingQueryKeys.recommendedMeetings._def,
           },
-          context.previousData.recommendedMeetings,
+          previousData.recommendedMeetings,
         );
       }
 

@@ -30,7 +30,7 @@ export default function MeetingDetailHost({
       <div className="w-full flex-1">
         <div className="mb-3 flex items-center gap-x-1">
           <img src="/images/icons/host.svg" alt="host_icon" />
-          <Text variant="B2_Medium" className="mr-1">
+          <Text variant="B2_Medium" className="mr-1 cursor-pointer">
             {hostName}
           </Text>
           <ChevronRightIcon width="6" height="12" />

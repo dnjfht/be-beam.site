@@ -65,7 +65,7 @@ export default function MeetingDetail({ loaderData }: Route.ComponentProps) {
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <CommonTemplate className="max-w-auto px-0 py-0 lg:max-w-[1480px] lg:px-4 lg:pt-41">
+      <CommonTemplate className="max-w-auto px-0 py-0 lg:max-w-[1480px] lg:px-4 lg:pt-41 lg:pb-10">
         <Suspense fallback={<LoadingSpinner />}>
           <MeetingDetailWrap id={id} />
         </Suspense>

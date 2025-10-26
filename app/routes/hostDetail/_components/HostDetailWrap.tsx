@@ -25,7 +25,6 @@ export default function HostDetailWrap({ id }: { id: number }) {
   const user = rootLoaderData.user;
 
   const { data: host } = useHostQuery(id);
-
   const { mutate: followHost, isPending } =
     useHostFollowAndFollowCancelMutation(id, host);
 
@@ -63,8 +62,10 @@ export default function HostDetailWrap({ id }: { id: number }) {
                   }
                 }}
                 className={cn(
-                  host.hostName === user?.nickname && 'hidden',
-                  'hidden h-8 px-4 text-b1 md:block',
+                  host.hostName === user?.nickname
+                    ? 'hidden'
+                    : 'hidden md:block',
+                  'h-8 px-4 text-b1',
                 )}
               >
                 {host?.followed ? '팔로우 취소' : '팔로우'}
@@ -82,8 +83,10 @@ export default function HostDetailWrap({ id }: { id: number }) {
                   }
                 }}
                 className={cn(
-                  host.hostName === user?.nickname && 'hidden',
-                  'block h-8 px-4 text-b1 md:hidden',
+                  host.hostName === user?.nickname
+                    ? 'hidden'
+                    : 'block md:hidden',
+                  'h-8 px-4 text-b1',
                 )}
               >
                 {host?.followed ? '팔로우 취소' : '팔로우'}
@@ -92,8 +95,8 @@ export default function HostDetailWrap({ id }: { id: number }) {
                 variant="outline"
                 size="md"
                 className={cn(
-                  host.hostName === user?.nickname && 'hidden',
-                  'box-border flex aspect-square flex-col justify-center gap-0 border-none p-2 text-b3 md:aspect-auto md:flex-row md:items-center md:justify-between md:gap-3 md:text-t3',
+                  host.hostName === user?.nickname ? 'hidden' : 'flex',
+                  'box-border aspect-square flex-col justify-center gap-0 border-none p-2 text-b3 md:aspect-auto md:flex-row md:items-center md:justify-between md:gap-3 md:text-t3',
                 )}
                 onClick={() => {
                   if (user) {

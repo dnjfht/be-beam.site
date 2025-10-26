@@ -92,10 +92,16 @@ export default function Meetings({ loaderData }: Route.ComponentProps) {
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <CommonTemplate>
+      <CommonTemplate className="pt-23 pb-10 lg:pt-41 lg:pb-16">
         <Banner
           imageUrl="/images/meeting_banner.png"
-          height="h-[220px] md:h-[365px]"
+          height="h-[365px]"
+          className="hidden lg:block"
+        />
+        <Banner
+          imageUrl="/images/m_meeting_banner.png"
+          height="h-[220px]"
+          className="lg:hidden"
         />
 
         <MeetingFilterControls

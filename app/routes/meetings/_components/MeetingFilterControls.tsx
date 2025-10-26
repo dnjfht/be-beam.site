@@ -60,7 +60,7 @@ export default function MeetingFilterControls({
   ];
 
   return (
-    <div className="mt-6 md:mt-16">
+    <div className="mt-6 md:mt-10 lg:mt-16">
       <TabsGroup
         categories={topics}
         selectedCategory={meetingFilters.topic}

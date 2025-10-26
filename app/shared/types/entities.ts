@@ -189,7 +189,8 @@ export interface MeetingSummary {
   recruitmentStatus?: string;
   image: ImageType;
   meetingStartTime: string;
-  address: string;
+  meetingEndTime: string;
+  paymentAmount?: number;
   liked?: boolean;
 }
 
@@ -200,7 +201,7 @@ export interface MyPageMeetingSummary {
   recruitmentStatus: string;
   thumbnailImage: string;
   meetingStartTime: string;
-  address: string;
+  meetingEndTime: string;
   userStatus: string;
 }
 

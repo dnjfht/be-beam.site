@@ -5,7 +5,7 @@ import MeetingRecommendations from './MeetingRecommendations';
 
 export default function MeetingRecommendationSection() {
   return (
-    <div className="mt-20 flex w-full max-w-[1480px] flex-col items-center pt-10">
+    <div className="mt-20 flex w-full max-w-[1448px] flex-col items-center pt-10">
       <div className="flex flex-col items-center p-4">
         <Text variant="H1_Bold" className="text-center">
           다양한 사람들이 다양하게 어우러지는 모임

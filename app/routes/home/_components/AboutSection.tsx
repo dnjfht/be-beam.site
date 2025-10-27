@@ -2,8 +2,8 @@ import Text from '@/shared/components/ui/Text';
 
 export default function AboutSection() {
   return (
-    <div className="w-full p-4 md:p-0">
-      <section className="mx-auto mt-10 w-full max-w-[1480px] overflow-hidden rounded-3xl bg-[#FFFBF2] px-4 py-8 md:py-20 md:pl-24 lg:mt-20">
+    <div className="w-full px-4 lg:px-0">
+      <section className="mx-auto mt-10 w-full max-w-[1448px] overflow-hidden rounded-3xl bg-[#FFFBF2] px-4 py-8 md:py-20 md:pl-24 lg:mt-20">
         <div className="grid grid-cols-1 items-center justify-between gap-8 md:grid-cols-2 md:gap-21">
           <div>
             <Text variant="T2_Semibold" color="primary">

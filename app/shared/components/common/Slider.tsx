@@ -84,7 +84,11 @@ export default function Slider({
                 <img
                   src={src}
                   alt={`Slide ${index + 1}`}
-                  className={cn('w-full object-cover', slideHeight, imageStyle)}
+                  className={cn(
+                    'w-full rounded-xl object-cover',
+                    slideHeight,
+                    imageStyle,
+                  )}
                 />
               </SwiperSlide>
             ))
@@ -94,7 +98,7 @@ export default function Slider({
                   src={data.bannerImage}
                   alt={`Slide ${index + 1}`}
                   className={cn(
-                    'w-full cursor-pointer object-cover',
+                    'w-full cursor-pointer rounded-xl object-cover',
                     slideHeight,
                   )}
                   onClick={() => navigate(data.bannerUrl)}

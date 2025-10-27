@@ -40,3 +40,4 @@ export default function GuideBookCard({ data }: { data: GuidebookSummary }) {
     </div>
   );
 }
+

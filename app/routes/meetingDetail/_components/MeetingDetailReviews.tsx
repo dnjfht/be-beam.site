@@ -16,10 +16,12 @@ export interface meetingReviewFilterType {
   sort: 'recent' | 'likes';
 }
 
-const MeetingDetailMeetingReviewsContainer = ({
+const MeetingDetailReviews = ({
   meetingId,
+  ref,
 }: {
   meetingId: number;
+  ref?: React.Ref<HTMLDivElement>;
 }) => {
   const [filter, setFilter] = useState<meetingReviewFilterType>({
     type: 'text',
@@ -51,7 +53,6 @@ const MeetingDetailMeetingReviewsContainer = ({
       const documentHeight = document.documentElement.scrollHeight;
       const viewportHeight =
         window.innerHeight || document.documentElement.clientHeight;
-
       const isScrolledBeyond1200 = currentScrollY > 1200;
       const isNearBottom500 =
         currentScrollY + viewportHeight >= documentHeight - 200;
@@ -64,13 +65,14 @@ const MeetingDetailMeetingReviewsContainer = ({
     };
 
     window.addEventListener('scroll', handleScroll);
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
   return (
-    <div className="w-full pt-12">
+    <div className="w-full py-10" ref={ref}>
       <Text variant="T3_Semibold" className="mb-6">
         모임 후기
         <span className="ml-1 text-gray-500">{meetingReviewList.length}</span>
@@ -84,6 +86,7 @@ const MeetingDetailMeetingReviewsContainer = ({
               changeFilter('type', filter.type === 'image' ? 'text' : 'image')
             }
           />
+
           <RatingFilter
             rating={filter.rating === 'all' ? 0 : Number(filter.rating)}
             onRatingChange={(rating) =>
@@ -91,6 +94,7 @@ const MeetingDetailMeetingReviewsContainer = ({
             }
           />
         </div>
+
         <div>
           <RadioGroup
             defaultValue="recent"
@@ -105,6 +109,7 @@ const MeetingDetailMeetingReviewsContainer = ({
             >
               최신순
             </RadioGroupItem>
+
             <RadioGroupItem
               value="likes"
               id="sort-like"
@@ -117,36 +122,74 @@ const MeetingDetailMeetingReviewsContainer = ({
       </div>
 
       <div className="box-border w-full">
-        {meetingReviewList?.map((review) => (
-          <MeetingReviewCard
-            key={review.reviewId}
-            reviewId={review.reviewId}
-            rating={review.rating}
-            text={review.text}
-            images={review.images}
-            liked={review.liked}
-            likesCount={review.likesCount}
-            profileImg={review.profileImg}
-            nickname={review.nickname}
-            createdAt={review.createdAt}
-            myReview={review.myReview}
-          />
-        ))}
-        <Button
-          variant="outline"
-          size="md"
-          className={`${btnIsVisible && hasNextPage ? 'block' : 'hidden'} fixed bottom-5 left-[25%] z-50 w-75 border-gray-500 text-gray-600`}
-          onClick={() => {
-            if (hasNextPage && !isFetchingNextPage) {
-              fetchNextPage();
-            }
-          }}
-        >
-          후기 더 보기
-        </Button>
+        {meetingReviewList?.length === 0 ? (
+          <div className="box-border flex h-[180px] w-full items-center justify-center rounded-lg bg-gray-200 p-3 text-b2">
+            아직 등록된 후기가 없어요
+          </div>
+        ) : (
+          <>
+            {meetingReviewList?.map((review) => (
+              <MeetingReviewCard
+                key={review.reviewId}
+                reviewId={review.reviewId}
+                rating={review.rating}
+                text={review.text}
+                images={review.images}
+                liked={review.liked}
+                likesCount={review.likesCount}
+                profileImg={review.profileImg}
+                nickname={review.nickname}
+                createdAt={review.createdAt}
+                myReview={review.myReview}
+              />
+            ))}
+
+            <Button
+              variant="outline"
+              size="md"
+              className={`${btnIsVisible && hasNextPage ? 'block' : 'hidden'} fixed bottom-5 left-[25%] z-50 w-75 border-gray-500 text-gray-600`}
+              onClick={() => {
+                if (hasNextPage && !isFetchingNextPage) {
+                  fetchNextPage();
+                }
+              }}
+            >
+              후기 더 보기
+            </Button>
+
+            {meetingReviewList?.map((review) => (
+              <MeetingReviewCard
+                key={review.reviewId}
+                reviewId={review.reviewId}
+                rating={review.rating}
+                text={review.text}
+                images={review.images}
+                liked={review.liked}
+                likesCount={review.likesCount}
+                profileImg={review.profileImg}
+                nickname={review.nickname}
+                createdAt={review.createdAt}
+                myReview={review.myReview}
+              />
+            ))}
+
+            <Button
+              variant="outline"
+              size="md"
+              className={`${btnIsVisible && hasNextPage ? 'block' : 'hidden'} fixed bottom-5 left-[25%] z-50 w-75 border-gray-500 text-gray-600`}
+              onClick={() => {
+                if (hasNextPage && !isFetchingNextPage) {
+                  fetchNextPage();
+                }
+              }}
+            >
+              후기 더 보기
+            </Button>
+          </>
+        )}
       </div>
     </div>
   );
 };
 
-export default MeetingDetailMeetingReviewsContainer;
+export default MeetingDetailReviews;

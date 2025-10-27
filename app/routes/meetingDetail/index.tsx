@@ -6,7 +6,8 @@ import {
 import { Suspense } from 'react';
 import { useParams } from 'react-router';
 import { metaTemplates } from '@/shared/config/meta-templates';
-import type { meetingReviewFilterType } from '@/routes/meetingDetail/_components/MeetingDetailMeetingReviewsContainer';
+
+import type { meetingReviewFilterType } from '@/routes/meetingDetail/_components/MeetingDetailReviews';
 import CommonTemplate from '@/shared/components/layout/CommonTemplate';
 import LoadingSpinner from '@/shared/components/ui/LoadingSpinner';
 import MeetingDetailWrap from '@/routes/meetingDetail/_components/MeetingDetailWrap';
@@ -64,7 +65,7 @@ export default function MeetingDetail({ loaderData }: Route.ComponentProps) {
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <CommonTemplate>
+      <CommonTemplate className="max-w-auto px-0 py-0 lg:max-w-[1480px] lg:px-4 lg:pt-41">
         <Suspense fallback={<LoadingSpinner />}>
           <MeetingDetailWrap id={id} />
         </Suspense>

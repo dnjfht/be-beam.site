@@ -19,7 +19,7 @@ export default function MeetingDetailHost({
   return (
     <div
       onClick={onClick}
-      className="mt-5 box-border flex w-full items-center gap-10 rounded-xl bg-gray-200 px-10 py-7"
+      className="mt-5 box-border flex w-full items-center gap-10 bg-white px-10 py-7 lg:rounded-xl lg:bg-gray-200"
     >
       <img
         className="h-16 w-16 rounded-full object-cover"

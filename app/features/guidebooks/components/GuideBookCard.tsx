@@ -1,8 +1,9 @@
-import Text from '../../../shared/components/ui/Text';
-import { useNavigate } from 'react-router';
-import type { GuidebookSummary } from '@/shared/types/entities';
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
+
 import { cn } from '@/styles/tailwind';
+import type { GuidebookSummary } from '@/shared/types/entities';
+import Text from '@/shared/components/ui/Text';
 
 export default function GuideBookCard({ data }: { data: GuidebookSummary }) {
   const navigate = useNavigate();

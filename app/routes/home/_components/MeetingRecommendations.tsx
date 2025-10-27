@@ -104,11 +104,9 @@ export default function MeetingRecommendations({
                           image={meeting.thumbnailImage}
                           recruitmentStatus={meeting.recruitmentStatus}
                           recruitmentType={meeting.recruitmentType}
-                          meetingStartTime={meeting.meetingStartTime.slice(
-                            0,
-                            10,
-                          )}
-                          address={meeting.address}
+                          meetingStartTime={meeting.meetingStartTime}
+                          meetingEndTime={meeting.meetingEndTime}
+                          paymentAmount={meeting.paymentAmount}
                           onClick={() => navigate(`/meeting/${meeting.id}`)}
                           onLikeClick={() => {
                             if (isPending) return;

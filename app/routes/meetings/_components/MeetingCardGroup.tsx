@@ -26,8 +26,9 @@ export default function MeetingCardGroup({
           recruitmentStatus={meeting.recruitmentStatus}
           name={meeting.name}
           image={meeting.image}
-          address={meeting.address}
           meetingStartTime={meeting.meetingStartTime}
+          meetingEndTime={meeting.meetingEndTime}
+          paymentAmount={meeting.paymentAmount}
           liked={meeting.liked}
           isLikeBtn={isLikedBtn}
           onClick={() => navigate(`/meeting/${meeting.id}`)}

@@ -1,7 +1,9 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router';
-import type { MyAppliedMeetingFilters } from '@/features/mypage/schemas/userFilters';
+import useAppliedMeetingsQuery from '@/features/meetings/hooks/useAppliedMeetingsQuery';
 import usePagination from '@/shared/hooks/usePagination';
+
+import type { MyAppliedMeetingFilters } from '@/features/mypage/schemas/userFilters';
 import type { MyPageMeetingSummary } from '@/shared/types/entities';
 import MeetingCard from '../../../features/meetings/components/MeetingCard';
 import {
@@ -12,7 +14,6 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '../../../shared/components/ui/Pagination';
-import useAppliedMeetingsQuery from '@/features/meetings/hooks/useAppliedMeetingsQuery';
 
 interface RequestedMeetingWrapProps {
   filters: MyAppliedMeetingFilters;
@@ -58,14 +59,14 @@ export default function RequestedMeetingWrap({
             userStatus={meeting.userStatus}
             name={meeting.name}
             meetingStartTime={meeting.meetingStartTime}
-            address={meeting.address}
+            meetingEndTime={meeting.meetingEndTime}
             onClick={() => navigate(`/meeting/${meeting.id}`)}
             isLikeBtn={false}
           >
             {/* TODO: requestMeetings?.status 값이 무엇인지 모르겠음 */}
             {/* {requestMeetings?.status !== 'rejected' &&
               meeting.userStatus !== '신청취소중' && (
-                <MoreDropdownMenu btnPosition="right-0 top-0 absolute">
+                <MoreDropdownMenu btnPosition="right-0 top-0 absolute bg-transparent">
                   <DropdownMenuItem
                     onSelect={() =>
                       open('CONFIRM_DIALOG', {

@@ -41,7 +41,7 @@ export default function GuideBooksContent({
           value={tab.value}
           className="mt-8 w-full px-4 lg:mt-10"
         >
-          <div className="mx-auto grid w-full grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-x-6 gap-y-12">
+          <div className="mx-auto grid w-full grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-5">
             {allGuideBooks?.map((data) => (
               <GuideBookCard key={data.id} data={data} />
             ))}

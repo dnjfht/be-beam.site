@@ -298,7 +298,7 @@ export default function MeetingDetailWrap({ id }: { id: number }) {
           {meeting.guidebook && (
             <TitleAndDes
               title="참고한 가이드북"
-              wrapStyle="mb-14 bg-white p-4 box-border"
+              wrapStyle="lg:mb-14 mb-6 bg-white p-4 box-border"
             >
               <GuideBookRecommendationCard
                 data={meeting.guidebook}

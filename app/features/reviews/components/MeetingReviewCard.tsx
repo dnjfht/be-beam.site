@@ -8,11 +8,9 @@ import toast from 'react-hot-toast';
 
 import type { Review } from '@/shared/types/entities';
 import MeetingReviewCardHeader from './MeetingReviewCardHeader';
-import { Button } from '../../../shared/components/ui/Button';
 import MeetingReviewEditForm from './MeetingReviewEditForm';
 import MeetingReviewContent from './MeetingReviewContent';
-import useLikeReviewMutation from '@/features/reviews/hooks/useLikeReviewMutation';
-import useUnlikeReviewMutation from '@/features/reviews/hooks/useUnlikeReviewMutation';
+import ReviewLikeButton from './ReviewLikeButton';
 
 interface EditType {
   isActive: boolean;
@@ -75,24 +73,6 @@ export default function MeetingReviewCard({
       setTotalEditImages(images);
     }
   }, [edit, reviewId, rating, text, images]);
-
-  // 나중에 코드 하나로 합치기(리뷰 좋아요/좋아요 취소 코드)
-  const { mutate: likeReview, isPending: likeReviewPending } =
-    useLikeReviewMutation();
-  const { mutate: unlikeReview, isPending: unlikeReviewPending } =
-    useUnlikeReviewMutation();
-
-  const handleLikeReview = () => {
-    if (!user) {
-      return alert('로그인 후 이용해주세요.');
-    }
-    if (likeReviewPending || unlikeReviewPending) return;
-    if (liked) {
-      unlikeReview({ reviewId: reviewId });
-    } else {
-      likeReview({ reviewId: reviewId });
-    }
-  };
 
   return (
     <div
@@ -166,18 +146,12 @@ export default function MeetingReviewCard({
         )}
       </div>
 
-      <Button
-        variant="outline"
-        className="mt-8 h-10 min-w-31 rounded-full border-gray-300 text-t4 text-gray-500"
-        onClick={handleLikeReview}
-      >
-        <img
-          className="h-6 w-6"
-          src={liked ? '/images/icons/fill_like.svg' : '/images/icons/like.svg'}
-          alt="like_icon"
-        />
-        좋아요 | {likesCount}
-      </Button>
+      <ReviewLikeButton
+        className="mt-8"
+        reviewId={reviewId}
+        liked={liked}
+        likesCount={likesCount}
+      />
     </div>
   );
 }

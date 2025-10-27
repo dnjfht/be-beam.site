@@ -12,6 +12,7 @@ import {
 } from '@/features/meetings/schemas/meetingFilters';
 import { useUrlFilters } from '@/shared/hooks/userUrlFilters';
 import { getTopics } from '@/shared/api/endpoints/topics';
+import { meetingsInfiniteQueryOptions } from '@/features/meetings/hooks/useMeetingsQuery';
 
 import type { Route } from '.react-router/types/app/routes/meetings/+types';
 import type { Topic } from '@/shared/types/entities';
@@ -20,8 +21,6 @@ import Banner from '@/shared/components/common/Banner';
 import MeetingFilterControls from '@/routes/meetings/_components/MeetingFilterControls';
 import MeetingWrap from '@/routes/meetings/_components/MeetingWrap';
 import { Button } from '@/shared/components/ui/Button';
-
-import { meetingsInfiniteQueryOptions } from '@/features/meetings/hooks/useMeetingsQuery';
 
 export function meta() {
   return metaTemplates.meetings();
@@ -80,9 +79,9 @@ export default function Meetings({ loaderData }: Route.ComponentProps) {
     const defaultAllOption = { label: '전체', value: 'all' };
 
     if (topics && topics.length > 0) {
-      const apiTopics = topics.map((item: Topic) => ({
+      const apiTopics = topics.map((item: Topic, idx: number) => ({
         label: item.topic,
-        value: String(item.topic),
+        value: String(idx + 1),
       }));
       return [defaultAllOption, ...apiTopics];
     }

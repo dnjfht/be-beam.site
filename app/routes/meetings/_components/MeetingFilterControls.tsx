@@ -59,12 +59,18 @@ export default function MeetingFilterControls({
     },
   ];
 
+  const handleTopicChange = (value: string) => {
+    const newTopicId = value === 'all' ? 'all' : Number(value);
+
+    setFilter({ 'topic-id': newTopicId });
+  };
+
   return (
     <div className="mt-6 md:mt-10 lg:mt-16">
       <TabsGroup
         categories={topics}
-        selectedCategory={meetingFilters.topic}
-        onCategoryChange={(value) => setFilter({ topic: value })}
+        selectedCategory={String(meetingFilters['topic-id'])}
+        onCategoryChange={handleTopicChange}
       />
 
       <div className="mt-4 flex w-full flex-col items-end justify-between lg:mt-8 lg:flex-row lg:items-center">

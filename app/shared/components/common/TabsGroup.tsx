@@ -19,6 +19,7 @@ export default function TabsGroup({
   children,
   classNames,
 }: TabsGroupProps) {
+  console.log('categories', categories);
   return (
     <Tabs value={selectedCategory} onValueChange={onCategoryChange}>
       <div className={cn('relative w-full overflow-x-auto', classNames)}>

@@ -26,8 +26,8 @@ export default function GuideBookCard({ data }: { data: GuidebookSummary }) {
 
       <div
         className={cn(
-          isActive ? 'translate-x-0' : '-translate-x-full',
-          'absolute top-0 left-0 box-border flex aspect-square w-full flex-col justify-center bg-[rgba(0,0,0,0.7)] p-5 transition-all duration-700',
+          isActive ? 'translate-x-0' : 'sm:-translate-x-full',
+          'absolute top-0 left-0 box-border flex aspect-square w-full flex-col justify-center bg-[rgba(0,0,0,0.5)] p-5 transition-all duration-700 sm:bg-[rgba(0,0,0,0.7)]',
         )}
       >
         <Text variant="T2_Semibold" color="white">

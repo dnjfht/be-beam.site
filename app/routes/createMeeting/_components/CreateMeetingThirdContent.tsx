@@ -45,7 +45,10 @@ export default function CreateMeetingThirdContent({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="box-border w-full px-4 md:px-0"
+    >
       <div className="w-full">
         <div className="mb-7 w-full">
           <Text variant="T2_Semibold">모집 방법</Text>
@@ -60,7 +63,7 @@ export default function CreateMeetingThirdContent({
                     key={idx}
                     variant="outline"
                     className={cn(
-                      'mt-3 mr-2 h-9 rounded-md border-gray-300 px-4 text-b1',
+                      'mt-3 mr-2 h-9 rounded-full border-gray-300 px-4 text-b1',
                       field.value === selectionType
                         ? 'border-primary bg-primary-light text-primary'
                         : 'bg-white text-black',
@@ -101,7 +104,7 @@ export default function CreateMeetingThirdContent({
                     key={idx}
                     variant="outline"
                     className={cn(
-                      'mt-3 mr-2 h-9 rounded-md border-gray-300 px-4 text-b1',
+                      'mt-3 mr-2 h-9 rounded-full border-gray-300 px-4 text-b1',
                       field.value === meetingMode
                         ? 'border-primary bg-primary-light text-primary'
                         : 'bg-white text-black',
@@ -127,55 +130,61 @@ export default function CreateMeetingThirdContent({
           />
         </div>
 
-        <div className="mb-7 grid w-full grid-cols-2 items-center gap-3">
-          <div>
-            <Text variant="T2_Semibold">최소 인원</Text>
-            <div className="mt-3 flex items-center gap-2">
-              <Controller
-                name="minParticipants"
-                control={control}
-                render={({ field }) => (
-                  <Input
-                    type="number"
-                    placeholder="최소 인원을 입력해주세요."
-                    value={field.value}
-                    onChange={(e) => {
-                      field.onChange(e);
-                      setForm({
-                        ...form,
-                        minParticipants: Number(e.target.value),
-                      });
-                    }}
-                  />
-                )}
-              />
-              명
+        <div className="mb-7 w-full">
+          <div className="grid w-full grid-cols-2 items-center gap-3">
+            <div>
+              <Text variant="T2_Semibold">최소 인원</Text>
+              <div className="mt-3 flex items-center gap-2">
+                <Controller
+                  name="minParticipants"
+                  control={control}
+                  render={({ field }) => (
+                    <Input
+                      type="number"
+                      placeholder="최소 인원을 입력해주세요."
+                      value={field.value}
+                      onChange={(e) => {
+                        field.onChange(e);
+                        setForm({
+                          ...form,
+                          minParticipants: Number(e.target.value),
+                        });
+                      }}
+                    />
+                  )}
+                />
+                명
+              </div>
+            </div>
+
+            <div>
+              <Text variant="T2_Semibold">최대 인원</Text>
+              <div className="mt-3 flex items-center gap-2">
+                <Controller
+                  name="maxParticipants"
+                  control={control}
+                  render={({ field }) => (
+                    <Input
+                      type="number"
+                      placeholder="최대 인원을 입력해주세요."
+                      value={field.value}
+                      onChange={(e) => {
+                        field.onChange(e);
+                        setForm({
+                          ...form,
+                          maxParticipants: Number(e.target.value),
+                        });
+                      }}
+                    />
+                  )}
+                />
+                명
+              </div>
             </div>
           </div>
 
-          <div>
-            <Text variant="T2_Semibold">최대 인원</Text>
-            <div className="mt-3 flex items-center gap-2">
-              <Controller
-                name="maxParticipants"
-                control={control}
-                render={({ field }) => (
-                  <Input
-                    type="number"
-                    placeholder="최대 인원을 입력해주세요."
-                    value={field.value}
-                    onChange={(e) => {
-                      field.onChange(e);
-                      setForm({
-                        ...form,
-                        maxParticipants: Number(e.target.value),
-                      });
-                    }}
-                  />
-                )}
-              />
-              명
-            </div>
+          <div className="mt-3 box-border rounded-lg bg-gray-200 p-3 text-b3 text-gray-600">
+            최대 인원은 20명 이하로 입력해주세요.
           </div>
         </div>
 
@@ -230,10 +239,8 @@ export default function CreateMeetingThirdContent({
             원
           </div>
 
-          <div className="mt-3 w-full rounded-lg bg-gray-200 p-2">
-            <Text variant="B3_Regular" color="gray-600">
-              📢 무료 모임의 경우 0원으로 입력해주세요.
-            </Text>
+          <div className="mt-3 box-border rounded-lg bg-gray-200 p-3 text-b3 text-gray-600">
+            📢 무료 모임의 경우 0원으로 입력해주세요.
           </div>
         </div>
 
@@ -256,21 +263,17 @@ export default function CreateMeetingThirdContent({
               />
             )}
           />
+          <div className="mt-3 box-border rounded-lg bg-gray-200 p-3 text-b3 text-gray-600">
+            공지사항을 10자 이상 입력해주세요.
+          </div>
         </div>
       </div>
 
-      <div className="mt-20 flex w-full items-center gap-3">
-        <Button
-          type="button"
-          variant="outline"
-          onClick={() => setTab(tab - 1)}
-          className="w-[50%]"
-        >
+      <div className="mt-20 grid w-full grid-cols-2 items-center gap-3">
+        <Button type="button" variant="outline" onClick={() => setTab(tab - 1)}>
           이전
         </Button>
-        <Button disabled={!formState.isValid} className="w-[50%]">
-          다음
-        </Button>
+        <Button disabled={!formState.isValid}>다음</Button>
       </div>
     </form>
   );

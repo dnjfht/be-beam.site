@@ -9,4 +9,6 @@ export interface CursorPaginationResult {
   page: number;
   size: number;
   hasNext: boolean;
+  totalPages: number;
+  totalElements: number;
 }

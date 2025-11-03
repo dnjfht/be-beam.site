@@ -3,9 +3,8 @@
 import { useState } from 'react';
 import useMeetingReviewsQuery from '@/features/reviews/hooks/useMeetingReviewsQuery';
 import usePagination from '@/shared/hooks/usePagination';
-
 import Text from '../../../shared/components/ui/Text';
-import MeetingReviewCard from '../../../features/reviews/components/MeetingReviewCard';
+
 import { ImageFilterChip } from '../../../features/reviews/components/ImageFilterChip';
 import { RatingFilter } from '../../../shared/components/common/RatingFilter';
 import { RadioGroup, RadioGroupItem } from '@radix-ui/react-radio-group';
@@ -18,6 +17,7 @@ import {
   PaginationPrevious,
 } from '@/shared/components/ui/Pagination';
 import LoadingSpinner from '@/shared/components/ui/LoadingSpinner';
+import WideReviewCard from '@/routes/reviews/_components/WideReviewCard';
 
 export interface meetingReviewFilterType {
   type: 'text' | 'image';
@@ -114,28 +114,20 @@ const MeetingDetailReviews = ({
             아직 등록된 후기가 없어요
           </div>
         ) : (
-          <div className="w-full">
+          <div className="mt-4.5 flex w-full flex-col gap-8">
             {isPending && (
               <LoadingSpinner loadingComment="더 많은 후기를 Loading..." />
             )}
 
             {meetingReview?.reviews.map((review) => (
-              <MeetingReviewCard
+              <WideReviewCard
                 key={review.reviewId}
-                reviewId={review.reviewId}
-                rating={review.rating}
-                text={review.text}
-                images={review.images}
-                liked={review.liked}
-                likesCount={review.likesCount}
-                profileImg={review.profileImg}
-                nickname={review.nickname}
-                createdAt={review.createdAt}
-                myReview={review.myReview}
+                review={review}
+                isMeetingDetail={true}
               />
             ))}
 
-            <Pagination className="mt-20">
+            <Pagination className="mt-10 md:mt-20">
               <PaginationContent>
                 {pagination.hasPreviousPage && (
                   <PaginationItem>

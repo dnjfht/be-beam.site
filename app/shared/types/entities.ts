@@ -84,6 +84,7 @@ export interface Meeting {
   reviewable: boolean;
   userStatus: string;
   isHost: boolean;
+  isComplaint: boolean;
 }
 
 export interface MeetingApplicants {

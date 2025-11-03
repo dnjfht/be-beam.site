@@ -1,7 +1,8 @@
-import ThreeDotHorizontalIcon from '../../../shared/components/icons/ThreeDotHorizontalIcon';
-import StarIcon from '../../../shared/components/icons/StarIcon';
 import { Link } from 'react-router';
-import ArrowRightIcon from '../../../shared/components/icons/ArrowRightIcon';
+import useReportComplaintMutation from '@/features/report/hooks/useReportComplaintMutation';
+
+import { cn } from '@/styles/tailwind';
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,7 +17,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '../../../shared/components/ui/Dialog';
-import useReportComplaintMutation from '@/features/report/hooks/useReportComplaintMutation';
+
 import ReportForm from '../../../features/report/components/ReportForm';
 import { ReviewUpdateForm } from '../../../features/reviews/components/ReviewUpdateForm';
 import {
@@ -36,6 +37,10 @@ import ReviewLikeButton from '@/features/reviews/components/ReviewLikeButton';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 
+import ThreeDotHorizontalIcon from '../../../shared/components/icons/ThreeDotHorizontalIcon';
+import StarIcon from '../../../shared/components/icons/StarIcon';
+import ArrowRightIcon from '../../../shared/components/icons/ArrowRightIcon';
+
 interface WideReviewCardProps {
   reviewId: number;
   profileImg: string;
@@ -50,15 +55,17 @@ interface WideReviewCardProps {
   meeting: {
     id: number;
     name: string;
-    recruitmentType: '정기모임' | '소모임';
-    image: string;
+    recruitmentType?: '정기모임' | '소모임';
+    image?: string;
   };
 }
 
 export default function WideReviewCard({
   review,
+  isMeetingDetail = false,
 }: {
   review: WideReviewCardProps;
+  isMeetingDetail?: boolean;
 }) {
   const updateReviewMutation = useUpdateReviewMutation();
   const deleteReviewMutation = useDeleteReviewMutation();
@@ -145,7 +152,7 @@ export default function WideReviewCard({
           </div>
         )}
 
-        <div className="mt-6">
+        <div className={cn(isMeetingDetail ? 'hidden' : 'block', 'mt-6')}>
           <Link
             to={`/meeting/${review.meeting.id}`}
             className="inline-flex items-center gap-1 text-t3 text-gray-600"

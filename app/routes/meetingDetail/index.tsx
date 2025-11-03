@@ -13,7 +13,7 @@ import LoadingSpinner from '@/shared/components/ui/LoadingSpinner';
 import MeetingDetailWrap from '@/routes/meetingDetail/_components/MeetingDetailWrap';
 import type { Route } from '.react-router/types/app/routes/meetingDetail/+types';
 import { meetingQueryOptions } from '@/features/meetings/hooks/useMeetingQuery';
-import { meetingReviewsInfiniteQueryOptions } from '@/features/reviews/hooks/useMeetingReviewsQuery';
+import { meetingReviewsQueryOptions } from '@/features/reviews/hooks/useMeetingReviewsQuery';
 
 export function meta() {
   return metaTemplates.meetingDetail();
@@ -26,12 +26,13 @@ export async function loader({ params }: Route.LoaderArgs) {
     type: 'text',
     rating: 'all',
     sort: 'recent',
+    page: 1,
   };
 
   await Promise.all([
     queryClient.prefetchQuery(meetingQueryOptions(Number(params.meetingId))),
-    queryClient.prefetchInfiniteQuery(
-      meetingReviewsInfiniteQueryOptions(Number(params.meetingId), filter),
+    queryClient.prefetchQuery(
+      meetingReviewsQueryOptions(Number(params.meetingId), filter),
     ),
   ]);
 
@@ -46,12 +47,13 @@ export async function clientLoader({ params }: Route.LoaderArgs) {
     type: 'text',
     rating: 'all',
     sort: 'recent',
+    page: 1,
   };
 
   await Promise.all([
     queryClient.prefetchQuery(meetingQueryOptions(Number(params.meetingId))),
-    queryClient.prefetchInfiniteQuery(
-      meetingReviewsInfiniteQueryOptions(Number(params.meetingId), filter),
+    queryClient.prefetchQuery(
+      meetingReviewsQueryOptions(Number(params.meetingId), filter),
     ),
   ]);
 

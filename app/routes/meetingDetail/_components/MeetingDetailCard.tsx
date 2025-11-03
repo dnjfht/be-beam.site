@@ -271,7 +271,7 @@ export default function MeetingDetailCard({ meeting }: { meeting: Meeting }) {
             }}
           >
             <SirenIcon width={28} height={28} />
-            신고
+            {meeting.isComplaint ? '신고 취소' : '신고'}
           </Button>
         </div>
       </div>

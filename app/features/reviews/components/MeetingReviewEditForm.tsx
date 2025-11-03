@@ -3,7 +3,6 @@ import { Button } from '../../../shared/components/ui/Button';
 import { Rating, RatingButton } from '../../../shared/components/ui/Rating';
 import Text from '../../../shared/components/ui/Text';
 import { Textarea } from '../../../shared/components/ui/Textarea';
-import type { EditDataType } from './MeetingReviewCard';
 
 interface MeetingReviewEditFormProps {
   rating: number;
@@ -15,6 +14,12 @@ interface MeetingReviewEditFormProps {
   onCancelEditMeetigReview: () => void;
   setEditData: Dispatch<SetStateAction<EditDataType>>;
   setTotalEditImages: (data: string[]) => void;
+}
+
+export interface EditDataType {
+  rating: number;
+  text: string;
+  existingImages: string[];
 }
 
 export default function MeetingReviewEditForm({

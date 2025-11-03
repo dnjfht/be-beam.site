@@ -3,12 +3,12 @@ import { useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 
+import { cn } from '@/styles/tailwind';
 import type { Swiper as SwiperClass } from 'swiper/types';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import type { Banner } from '@/shared/types/entities';
-import { cn } from '@/styles/tailwind';
 import Text from '../ui/Text';
 import { IconButton } from '@/shared/components/ui/IconButton';
 
